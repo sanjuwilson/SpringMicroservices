@@ -13,6 +13,7 @@ import java.util.List;
 public class SchoolService {
     private SchoolRepo repo;
     private StudentClient client;
+    private DetailsClient detailsClient;
 
     public School saveSchool(School school) {
         return repo.save(school);
@@ -36,11 +37,16 @@ public class SchoolService {
 
     public List<SchoolResponseDto> findSchoolWithoutId() {
         List<SchoolResponseDto> res = new ArrayList<>();
+        List<StudentDetails> details= new ArrayList<>();
         SchoolResponseDto dto=null;
         List<School>schools=repo.findAll();
         for(School school:schools){
             int id=school.getId();
             List<Student> stu=client.findBySchoolId(id);
+            for(Student student:stu) {
+                StudentDetails det = detailsClient.getAllStudentDetailsByStudentId(student.getId()).getBody();
+                student.setStudentDetails(det);
+            }
             dto=new SchoolResponseDto(school.getName(),school.getAddress(),stu);
             res.add(dto);
         }

@@ -7,11 +7,15 @@ eureka:
 server:
   port: 8070
 spring:
+  management:
+    tracing:
+      sampling:
+        probability: 1.0
   application:
     name: schools
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:1234/school
+    url: jdbc:postgresql://localhost:1235/school
     username: postgres
     password: pass
   jpa:

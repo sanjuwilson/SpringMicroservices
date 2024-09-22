@@ -21,3 +21,11 @@ spring:
           uri: http://localhost:8070
           predicates:
             - Path=/school/**
+        - id: details
+          uri: http://localhost:8233
+          predicates:
+            - Path=/details/**
+  management:
+    tracing:
+      sampling:
+        probability: 1.0

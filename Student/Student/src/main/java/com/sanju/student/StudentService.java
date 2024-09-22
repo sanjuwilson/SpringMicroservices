@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -14,6 +15,7 @@ import java.util.List;
 public class StudentService {
 
     private final StudentRepo repo;
+    private final StudentDetailsClient detailsClient;
 
     public Student saveStudent(Student student) {
         return repo.save(student);
@@ -28,5 +30,10 @@ public class StudentService {
 
     public List<Student> findBySchoolId(Integer schoolId) {
         return repo.findAllStudentsBySchoolId(schoolId);
+    }
+    public StudentResponseDto getDetailsWithStudent(int studentId) {
+        Student student = repo.findById(studentId).orElse(Student.builder().build());
+        StudentDetails details=detailsClient.getAllStudentDetailsByStudentId(studentId).getBody();
+        return new StudentResponseDto(student.getFirstName(),student.getLastName(), student.getEmail(),details);
     }
 }

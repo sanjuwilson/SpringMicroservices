@@ -1,0 +1,63 @@
+services:
+  postgres:
+    container_name: postgres-container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: student  # Default database
+    ports:
+      - "1234:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - micro-service-net
+    restart: unless-stopped
+
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - zipkin
+
+  school-postgres:
+    container_name: school-postgres-container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: school
+    ports:
+      - "1235:5432"
+    volumes:
+      - school-postgres-data:/var/lib/postgresql/data
+    networks:
+      - micro-service-net
+    restart: unless-stopped
+
+  details-postgres:
+    container_name: details-postgres-container
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: details
+    ports:
+      - "1236:5432"
+    volumes:
+      - details-postgres-data:/var/lib/postgresql/data
+    networks:
+      - micro-service-net
+    restart: unless-stopped
+
+networks:
+  micro-service-net:
+    driver: bridge
+  zipkin:
+    driver: bridge
+volumes:
+  postgres-data:
+  school-postgres-data:
+  details-postgres-data:

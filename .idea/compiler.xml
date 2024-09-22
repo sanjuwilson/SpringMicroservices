@@ -12,6 +12,7 @@
         <module name="Student" />
         <module name="gateway" />
         <module name="discovery" />
+        <module name="StudentDetails" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="School" options="-parameters" />
       <module name="Student" options="-parameters" />
+      <module name="StudentDetails" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />

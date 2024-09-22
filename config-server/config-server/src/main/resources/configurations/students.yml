@@ -7,6 +7,10 @@ eureka:
 server:
   port: 8090
 spring:
+  management:
+    tracing:
+      sampling:
+        probability: 1.0
   application:
     name: students
   datasource:
